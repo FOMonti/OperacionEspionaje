@@ -1,6 +1,7 @@
 package entidades;
 
 import java.util.HashMap;
+import java.util.Set;
 
 public class Grafo<X, Y> {
 
@@ -11,14 +12,14 @@ public class Grafo<X, Y> {
 		// vertice1 -- ({vertice2,50} , {vertice3; 70})
 	}
 
-	protected void agregarVertice(X vertice) {
+	public void agregarVertice(X vertice) {
 		if (!vertices.containsKey(vertice)) {
 			vertices.put(vertice, new HashMap<X, Y>());
 		}
 		// lanzamos expcecion si ya agregó al espia?
 	}
 
-	protected void agregarArista(X vertice1, X vertice2, Y peso) {
+	public void agregarArista(X vertice1, X vertice2, Y peso) {
 		if (!vertices.containsKey(vertice1)) {
 			// lanzamos excepcion? No existe el espia
 		}
@@ -30,14 +31,31 @@ public class Grafo<X, Y> {
 
 	}
 
-	protected boolean existeArista(X vertice1, X vertice2) {
+	public boolean existeArista(X vertice1, X vertice2) {
 		if (vertices.get(vertice1).get(vertice2) != null) {
 			return true;
 		}
 		return false;
 	}
 
-	protected HashMap<X, Y> vecinos(X vertice) {
-		return vertices.get(vertice);
+	public boolean existeVertice(X vertice) {
+		return vertices.get(vertice) != null;
 	}
+
+	public Set<X> vertices() {
+		return vertices.keySet();
+	}
+
+	public Set<X> vecinos(X vertice) {
+		return vertices.get(vertice).keySet();
+	}
+
+	public Y peso(X vertice1, X vertice2) {
+		return vertices.get(vertice1).get(vertice2);
+	}
+
+	public int tamanio() {
+		return vertices().size();
+	}
+
 }

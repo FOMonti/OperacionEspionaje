@@ -1,22 +1,27 @@
 package entidades;
 
-import java.util.HashMap;
+import java.util.Set;
 
 public class RedEspias extends Grafo<String, Double> {
 
 	public void agregarEspia(String espia) {
-		agregarVertice(espia);
+		agregarVertice(espia.toUpperCase());
 	}
 
 	public void agregarComunicacion(String espiaEmisor, String espiaReceptor, Double riesgo) {
-		agregarArista(espiaEmisor, espiaReceptor, riesgo);
+		agregarArista(espiaEmisor.toUpperCase(), espiaReceptor.toUpperCase(), riesgo);
 	}
 
 	public boolean existeComunicacion(String espiaEmisor, String espiaReceptor) {
-		return existeArista(espiaEmisor, espiaReceptor);
+		return existeArista(espiaEmisor.toUpperCase(), espiaReceptor.toUpperCase());
 	}
 
-	public HashMap<String, Double> contactos(String espia) {
-		return vecinos(espia);
+	public Set<String> espias() {
+		return vertices();
 	}
+
+	public Set<String> contactos(String espia) {
+		return vecinos(espia.toUpperCase());
+	}
+
 }
