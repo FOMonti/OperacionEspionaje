@@ -24,12 +24,10 @@ public class Prim<X> {
 
 	private void armarArbol(Grafo<X, Double> grafo, X vertice) {
 		arbolGeneradorMinimo.agregarVertice(vertice);
-		System.out.println(vertice + "°");
 		while (!estenTodosMarcados(grafo)) {
 			aristaDeMenorPeso(grafo);
 			arbolGeneradorMinimo.agregarVertice(verticeAgregar);
 			arbolGeneradorMinimo.agregarArista(verticeReferencia, verticeAgregar, pesoDeAristaAgregar);
-			System.out.println(verticeAgregar);
 		}
 	}
 
