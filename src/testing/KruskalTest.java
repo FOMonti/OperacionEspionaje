@@ -10,6 +10,7 @@ import entidades.Grafo;
 import entidades.Kruskal;
 
 public class KruskalTest {
+
 	Grafo<String, Double> grafo;
 	Kruskal<String> kruskal;
 
@@ -60,7 +61,7 @@ public class KruskalTest {
 
 		Grafo<String, Double> arbol = kruskal.arbolGeneradorMinimo(grafo);
 		assertTrue(arbol.existeArista("A", "B"));
-		// notar que la siguiente arista no esta en Prim, y es remplazada por BC
+		// Notar que la siguiente arista no esta en Prim, y es remplazada por BC
 		assertTrue(arbol.existeArista("A", "H"));
 		assertTrue(arbol.existeArista("C", "I"));
 		assertTrue(arbol.existeArista("C", "F"));

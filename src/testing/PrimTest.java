@@ -61,6 +61,7 @@ public class PrimTest {
 
 		Grafo<String, Double> arbol = prim.arbolGeneradorMinimo(grafo);
 		assertTrue(arbol.existeArista("A", "B"));
+		// Notar que la siguiente arista no esta en Kruskal, y es remplazada por AH
 		assertTrue(arbol.existeArista("B", "C"));
 		assertTrue(arbol.existeArista("C", "I"));
 		assertTrue(arbol.existeArista("C", "F"));

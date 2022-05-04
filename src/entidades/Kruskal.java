@@ -25,33 +25,21 @@ public class Kruskal<X> {
 	}
 
 	private void armarArbol(Grafo<X, Double> grafo) {
-		while (!estenTodosMarcados(grafo)) {
+		while (!verticesGrafoEnArbol(grafo)) {
 			aristaDeMenorPeso(grafo);
-			if (!arbolGeneradorMinimo.existeVertice(verticeReferencia)) {
+			if (!arbolGeneradorMinimo.existeVertice(verticeReferencia))
 				arbolGeneradorMinimo.agregarVertice(verticeReferencia);
-			}
-			arbolGeneradorMinimo.agregarVertice(verticeAgregar);
+			if (!arbolGeneradorMinimo.existeVertice(verticeAgregar))
+				arbolGeneradorMinimo.agregarVertice(verticeAgregar);
 			arbolGeneradorMinimo.agregarArista(verticeReferencia, verticeAgregar, pesoDeAristaAgregar);
 			intercambiarComponentesConexas(grafo.vertices(), verticeReferencia, verticeAgregar);
-//			System.out.println(verticeReferencia + ";" + verticeAgregar);
 		}
 	}
 
 	private void aristaDeMenorPeso(Grafo<X, Double> grafo) {
 		pesoDeAristaAgregar = Double.MAX_VALUE;
-		for (X vertice : grafo.vertices()) {
+		for (X vertice : grafo.vertices())
 			recorrerVecinosDelArbol(grafo, vertice);
-		}
-	}
-
-	private void recorrerVecinosDelArbol(Grafo<X, Double> grafo, X vertice) {
-		for (X vecino : grafo.vecinos(vertice)) {
-			if (pesoDeAristaAgregar > grafo.peso(vertice, vecino) && (!mismaComponenteConexa(vertice, vecino))) {
-				pesoDeAristaAgregar = grafo.peso(vertice, vecino);
-				verticeAgregar = vecino;
-				verticeReferencia = vertice;
-			}
-		}
 	}
 
 	private void intercambiarComponentesConexas(Set<X> vertices, X vertice1, X vertice2) {
@@ -59,29 +47,29 @@ public class Kruskal<X> {
 			intercambiar(vertices, vertice1, vertice2);
 		else
 			intercambiar(vertices, vertice2, vertice1);
-//		System.out.println("{");
-//		for (X vertice : vertices) {
-//			System.out.print("|" + vertice + ";" + componentesConexas.get(vertice) + "|");
-//		}
-//		System.out.println("}");
 	}
 
 	private void intercambiar(Set<X> vertices, X verticeMayorComponente, X verticeMenorComponente) {
-		for (X vetice : vertices) {
-			if (componentesConexas.get(vetice).equals(verticeMenorComponente)) {
+		for (X vetice : vertices)
+			if (componentesConexas.get(vetice).equals(verticeMenorComponente))
 				componentesConexas.replace(vetice, verticeMayorComponente);
-			}
-		}
 	}
 
 	private int cantComponenteConexa(Set<X> vertices, X vertice) {
 		int cont = 0;
-		for (X ver : vertices) {
-			if (mismaComponenteConexa(ver, vertice)) {
+		for (X ver : vertices)
+			if (mismaComponenteConexa(ver, vertice))
 				cont++;
-			}
-		}
 		return cont;
+	}
+
+	private void recorrerVecinosDelArbol(Grafo<X, Double> grafo, X vertice) {
+		for (X vecino : grafo.vecinos(vertice))
+			if (pesoDeAristaAgregar > grafo.peso(vertice, vecino) && (!mismaComponenteConexa(vertice, vecino))) {
+				pesoDeAristaAgregar = grafo.peso(vertice, vecino);
+				verticeAgregar = vecino;
+				verticeReferencia = vertice;
+			}
 	}
 
 	private boolean mismaComponenteConexa(X vertice1, X vertice2) {
@@ -89,20 +77,18 @@ public class Kruskal<X> {
 	}
 
 	private X componenteConexa(X vertice) {
-		if (componentesConexas.get(vertice) == vertice) {
+		if (componentesConexas.get(vertice) == vertice) // Caso Base
 			return vertice;
-		} else {
-			return componenteConexa(componentesConexas.get(vertice));
-		}
+		else
+			return componenteConexa(componentesConexas.get(vertice));// Recursión
+	}
+
+	public boolean verticesGrafoEnArbol(Grafo<X, Double> grafo) {
+		return grafo.tamanio() == arbolGeneradorMinimo.tamanio();
 	}
 
 	private void inicializarComponentesConexas(Set<X> vertices) {
-		for (X vertice : vertices) {
+		for (X vertice : vertices)
 			componentesConexas.put(vertice, vertice);
-		}
-	}
-
-	public boolean estenTodosMarcados(Grafo<X, Double> grafo) {
-		return grafo.tamanio() == arbolGeneradorMinimo.tamanio();
 	}
 }
