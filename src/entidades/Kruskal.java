@@ -25,7 +25,7 @@ public class Kruskal<X> {
 	}
 
 	private void armarArbol(Grafo<X, Double> grafo) {
-		while (!verticesGrafoEnArbol(grafo)) {
+		for (int i = 0; i < grafo.tamanio(); i++) {
 			aristaDeMenorPeso(grafo);
 			if (!arbolGeneradorMinimo.existeVertice(verticeReferencia))
 				arbolGeneradorMinimo.agregarVertice(verticeReferencia);
@@ -81,10 +81,6 @@ public class Kruskal<X> {
 			return vertice;
 		else
 			return componenteConexa(componentesConexas.get(vertice));// Recursión
-	}
-
-	public boolean verticesGrafoEnArbol(Grafo<X, Double> grafo) {
-		return grafo.tamanio() == arbolGeneradorMinimo.tamanio();
 	}
 
 	private void inicializarComponentesConexas(Set<X> vertices) {
