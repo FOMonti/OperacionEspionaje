@@ -12,6 +12,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class InterfazMenu {
+	
+	private InterfazAgregarEspia interfazAgregarEspia = new InterfazAgregarEspia();
+	private InterfazAgregarComunicacion interfazAgregarComunicacion  = new InterfazAgregarComunicacion();
 
 	private JFrame frameMenu;
 
@@ -42,10 +45,12 @@ public class InterfazMenu {
 		inicializarFrame();
 		btnAgregarEspia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				interfazAgregarEspia.InicializarFrame();
 			}
 		});
 		btnAgregarComunicacion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				interfazAgregarComunicacion.InicializarFrame();
 			}
 		});
 		btnArbolGeneradorMinimo.addActionListener(new ActionListener() {
@@ -54,7 +59,7 @@ public class InterfazMenu {
 		});
 	}
 
-//Inicializacion de Variables:
+	//Inicializacion de Variables:
 	private void inicializarFrame() {
 		inicializarFrameMenu();
 		inicializarLabelTituloInicio();
