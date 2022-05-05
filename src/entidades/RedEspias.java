@@ -36,16 +36,17 @@ public class RedEspias extends Grafo<String, Double> {
 			ret = existeArista(espiaEmisor.toUpperCase(), espiaReceptor.toUpperCase());
 		} catch (IllegalArgumentException e) {
 			throw new ComunicacionExcepcion(
-					"El o los espias no existe/n || Estas verificando una comunicacion entre espia y consigo mismo --> "
+					"El o los espias no existe/n || Estas verificando una comunicacion entre un espia consigo mismo --> "
 							+ "no existe la comunicacion : (" + espiaEmisor + ";" + espiaReceptor + ")");
 		}
 		return ret;
 	}
+	
 
 	public Double riesgo(String espiaEmisor, String espiaReceptor) throws ComunicacionExcepcion {
 		Double ret = 0d;
 		try {
-			ret = peso(espiaEmisor, espiaReceptor);
+			ret = peso(espiaEmisor.toUpperCase(), espiaReceptor.toUpperCase());
 		} catch (IllegalArgumentException e) {
 			throw new ComunicacionExcepcion(
 					"El o los espias no existe/n || Estas verificando el riesgo entre espia y consigo mismo || "

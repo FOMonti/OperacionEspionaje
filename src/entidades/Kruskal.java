@@ -30,7 +30,7 @@ public class Kruskal<X> {
 			if (!arbolGeneradorMinimo.existeVertice(verticeReferencia))
 				arbolGeneradorMinimo.agregarVertice(verticeReferencia);
 			if (!arbolGeneradorMinimo.existeVertice(verticeAgregar))
-				arbolGeneradorMinimo.agregarVertice(verticeAgregar);
+				arbolGeneradorMinimo.agregarVertice(verticeAgregar); 
 			arbolGeneradorMinimo.agregarArista(verticeReferencia, verticeAgregar, pesoDeAristaAgregar);
 			intercambiarComponentesConexas(grafo.vertices(), verticeReferencia, verticeAgregar);
 		}
@@ -80,7 +80,7 @@ public class Kruskal<X> {
 		if (componentesConexas.get(vertice) == vertice) // Caso Base
 			return vertice;
 		else
-			return componenteConexa(componentesConexas.get(vertice));// Recursión
+			return componenteConexa(componentesConexas.get(vertice));// Recursiï¿½n
 	}
 
 	private void inicializarComponentesConexas(Set<X> vertices) {
