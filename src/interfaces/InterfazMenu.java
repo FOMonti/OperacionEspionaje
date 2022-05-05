@@ -12,9 +12,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class InterfazMenu {
-	
-	private InterfazAgregarEspia interfazAgregarEspia = new InterfazAgregarEspia();
-	private InterfazAgregarComunicacion interfazAgregarComunicacion  = new InterfazAgregarComunicacion();
+
+	private static InterfazAgregarEspia interfazAgregarEspia = new InterfazAgregarEspia();
+	private static InterfazAgregarComunicacion interfazAgregarComunicacion = new InterfazAgregarComunicacion();
 
 	private JFrame frameMenu;
 
@@ -59,7 +59,7 @@ public class InterfazMenu {
 		});
 	}
 
-	//Inicializacion de Variables:
+	// Inicializacion de Variables:
 	private void inicializarFrame() {
 		inicializarFrameMenu();
 		inicializarLabelTituloInicio();

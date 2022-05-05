@@ -18,7 +18,7 @@ public class InterfazAgregarEspia {
 	private JFrame frame;
 	private JTextArea inputEspia;
 	private JLabel lblIngreseEspia;
-	
+
 	private JButton btnAgregarEspia;
 
 	/**
@@ -44,24 +44,21 @@ public class InterfazAgregarEspia {
 		InicializarFrame();
 		btnAgregarEspia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 			}
 		});
 	}
 
-	//Inicializacion de Variables
+	// Inicializacion de Variables
 	public void InicializarFrame() {
-		
+
 		InitFrame();
 		InitLabelIngreseEspia();
 		InitInputEspia();
 		InitButtonAgregar();
-		
-		
+
 	}
-	
-	
-	
+
 	// Inicializacion del Frame.
 	private void InitFrame() {
 		frame = new JFrame();
@@ -70,6 +67,7 @@ public class InterfazAgregarEspia {
 		frame.getContentPane().setBackground(new Color(0, 0, 51));
 		frame.getContentPane().setLayout(null);
 	}
+
 	private void InitLabelIngreseEspia() {
 		lblIngreseEspia = new JLabel("Ingrese el nombre de su esp\u00EDa:");
 		lblIngreseEspia.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -77,6 +75,7 @@ public class InterfazAgregarEspia {
 		lblIngreseEspia.setBounds(192, 135, 328, 25);
 		frame.getContentPane().add(lblIngreseEspia);
 	}
+
 	private void InitInputEspia() {
 		inputEspia = new JTextArea();
 		inputEspia.setMargin(new Insets(2, 15, 2, 2));
@@ -84,6 +83,7 @@ public class InterfazAgregarEspia {
 		inputEspia.setBounds(192, 202, 279, 31);
 		frame.getContentPane().add(inputEspia);
 	}
+
 	private void InitButtonAgregar() {
 		btnAgregarEspia = new JButton("Agregar");
 		btnAgregarEspia.setFont(new Font("Tahoma", Font.PLAIN, 20));
