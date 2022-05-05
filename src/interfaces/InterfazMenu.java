@@ -7,14 +7,18 @@ import java.awt.Font;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
+import entidades.RedEspias;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class InterfazMenu {
 
-	private static InterfazAgregarEspia interfazAgregarEspia = new InterfazAgregarEspia();
-	private static InterfazAgregarComunicacion interfazAgregarComunicacion = new InterfazAgregarComunicacion();
+	private final InterfazAgregarEspia interfazAgregarEspia = new InterfazAgregarEspia();
+	private final InterfazAgregarComunicacion interfazAgregarComunicacion = new InterfazAgregarComunicacion();
+	private RedEspias redEspias = new RedEspias();
 
 	private JFrame frameMenu;
 
@@ -39,24 +43,54 @@ public class InterfazMenu {
 
 	public InterfazMenu() {
 		initialize();
-	}
-
-	private void initialize() {
-		inicializarFrame();
+		frameMenu.setVisible(true);
 		btnAgregarEspia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				interfazAgregarEspia.InicializarFrame();
+				mostrarVentanaAgregarEspia();
 			}
 		});
 		btnAgregarComunicacion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				interfazAgregarComunicacion.InicializarFrame();
+				mostrarVentanaAgregarComunicacion();
 			}
 		});
 		btnArbolGeneradorMinimo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
+	}
+
+	public void mostrarVentana(RedEspias redEspias) {
+		this.redEspias = redEspias;
+		frameMenu.setVisible(true);
+	}
+
+	private void initialize() {
+		inicializarFrame();
+		btnAgregarEspia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				mostrarVentanaAgregarEspia();
+			}
+		});
+		btnAgregarComunicacion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				mostrarVentanaAgregarComunicacion();
+			}
+		});
+		btnArbolGeneradorMinimo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+	}
+
+	private void mostrarVentanaAgregarEspia() {
+		frameMenu.setVisible(false);
+		interfazAgregarEspia.mostrarVentana(redEspias, this);
+	}
+
+	private void mostrarVentanaAgregarComunicacion() {
+		frameMenu.setVisible(false);
+		interfazAgregarComunicacion.mostrarVentana(redEspias, this);
 	}
 
 	// Inicializacion de Variables:

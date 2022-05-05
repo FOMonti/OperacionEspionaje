@@ -7,6 +7,10 @@ import excepciones.EspiaExcepcion;
 
 public class RedEspias extends Grafo<String, Double> {
 
+	public RedEspias() {
+		super();
+	}
+
 	public void agregarEspia(String espia) throws EspiaExcepcion {
 		try {
 			agregarVertice(espia.toUpperCase());

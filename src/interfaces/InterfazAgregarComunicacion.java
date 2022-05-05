@@ -1,12 +1,15 @@
 package interfaces;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextArea;
+
+import entidades.RedEspias;
+import excepciones.ComunicacionExcepcion;
+
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,73 +18,79 @@ import javax.swing.JButton;
 
 public class InterfazAgregarComunicacion {
 
+	private InterfazMenu interfazMenu;
+	private RedEspias redEspias = new RedEspias();
+
 	private JFrame frame;
-	
+
 	private JLabel lblIngreseEspia;
-	
+
 	private JLabel lblEspiaEmisor;
 	private JTextArea inputEspiaEmisor;
-	
+
 	private JLabel lblEspiaReceptor;
 	private JTextArea inputEspiaReceptor;
-	
+
 	private JLabel lblRiesgo;
 	private JTextArea inputRiesgo;
-	
-	private JButton btnAgregarComunicacion;
-	
-	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					InterfazAgregarComunicacion window = new InterfazAgregarComunicacion();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the application.
-	 */
+	private JButton btnAgregarComunicacion;
+	private JButton btnVolverMenu;
+
 	public InterfazAgregarComunicacion() {
 		InicializarFrame();
 		btnAgregarComunicacion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				String espia1 = inputEspiaEmisor.getText();
+				String espia2 = inputEspiaReceptor.getText();
+				Double riesgo = Double.valueOf(inputRiesgo.getText());
+				try {
+					redEspias.agregarComunicacion(espia1, espia2, riesgo);
+				} catch (ComunicacionExcepcion eE) {
+					System.out.println(eE.getMessage());
+				}
+			}
+		});
+		btnVolverMenu.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				volverMenu();
 			}
 		});
 	}
 
-	//Inicializacion de Variables
+	public void mostrarVentana(RedEspias redEspias, InterfazMenu interfazMenu) {
+//		System.out.println("123");
+		this.redEspias = redEspias;
+		this.interfazMenu = interfazMenu;
+		frame.setVisible(true);
+		// Si se va a selecionar de listas las opciones, se inicializa aca
+	}
+
+	private void volverMenu() {
+		frame.setVisible(false);
+		interfazMenu.mostrarVentana(redEspias);
+	}
+
+	// Inicializacion de Variables
 	public void InicializarFrame() {
-		
+
 		InitFrame();
 		InitLabelIngreseComunicacion();
-		
+
 		InitLabelEspiaEmisor();
 		InitInputEspiaEmisor();
-		
+
 		InitLabelEspiaReceptor();
 		InitInputEspiaReceptor();
-		
+
 		InitLabelRiesgo();
 		InitInputRiesgo();
-		
+
 		InitButtonAgregarComunicacion();
-		
-		
-		
+		inicializarBtnVolverMenu();
 	}
-	
-	
-	
+
 	// Inicializacion del Frame.
 	private void InitFrame() {
 		frame = new JFrame();
@@ -89,7 +98,13 @@ public class InterfazAgregarComunicacion {
 		frame.setBackground(Color.BLUE);
 		frame.getContentPane().setBackground(new Color(0, 0, 51));
 		frame.getContentPane().setLayout(null);
+		frame.setBounds(200, 100, 680, 500);
+		frame.setLocationRelativeTo(null);
+		frame.setResizable(false);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(false);
 	}
+
 	private void InitLabelIngreseComunicacion() {
 		lblIngreseEspia = new JLabel("Agrega la comunicacion entre espias:");
 		lblIngreseEspia.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -97,7 +112,7 @@ public class InterfazAgregarComunicacion {
 		lblIngreseEspia.setBounds(158, 23, 382, 25);
 		frame.getContentPane().add(lblIngreseEspia);
 	}
-	
+
 	private void InitLabelEspiaEmisor() {
 		lblEspiaEmisor = new JLabel("Espia emisor:");
 		lblEspiaEmisor.setForeground(Color.WHITE);
@@ -108,13 +123,12 @@ public class InterfazAgregarComunicacion {
 
 	private void InitInputEspiaEmisor() {
 		inputEspiaEmisor = new JTextArea();
-		inputEspiaEmisor .setMargin(new Insets(2, 15, 2, 2));
-		inputEspiaEmisor .setFont(new Font("Monospaced", Font.PLAIN, 20));
-		inputEspiaEmisor .setBounds(348, 91, 186, 31);
-		frame.getContentPane().add(inputEspiaEmisor );
+		inputEspiaEmisor.setMargin(new Insets(2, 15, 2, 2));
+		inputEspiaEmisor.setFont(new Font("Monospaced", Font.PLAIN, 20));
+		inputEspiaEmisor.setBounds(348, 91, 186, 31);
+		frame.getContentPane().add(inputEspiaEmisor);
 	}
-	
-	
+
 	private void InitLabelEspiaReceptor() {
 		lblEspiaReceptor = new JLabel("Espia receptor:");
 		lblEspiaReceptor.setForeground(Color.WHITE);
@@ -122,6 +136,7 @@ public class InterfazAgregarComunicacion {
 		lblEspiaReceptor.setBounds(136, 183, 145, 25);
 		frame.getContentPane().add(lblEspiaReceptor);
 	}
+
 	private void InitInputEspiaReceptor() {
 		inputEspiaReceptor = new JTextArea();
 		inputEspiaReceptor.setMargin(new Insets(2, 15, 2, 2));
@@ -129,14 +144,15 @@ public class InterfazAgregarComunicacion {
 		inputEspiaReceptor.setBounds(348, 180, 186, 31);
 		frame.getContentPane().add(inputEspiaReceptor);
 	}
-	
-	private void InitLabelRiesgo(){
+
+	private void InitLabelRiesgo() {
 		lblRiesgo = new JLabel("Riesgo comunicacion:");
 		lblRiesgo.setForeground(Color.WHITE);
 		lblRiesgo.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblRiesgo.setBounds(136, 273, 202, 25);
 		frame.getContentPane().add(lblRiesgo);
 	}
+
 	private void InitInputRiesgo() {
 		inputRiesgo = new JTextArea();
 		inputRiesgo.setMargin(new Insets(2, 15, 2, 2));
@@ -144,15 +160,18 @@ public class InterfazAgregarComunicacion {
 		inputRiesgo.setBounds(348, 270, 186, 31);
 		frame.getContentPane().add(inputRiesgo);
 	}
+
 	private void InitButtonAgregarComunicacion() {
 		btnAgregarComunicacion = new JButton("Agregar");
 		btnAgregarComunicacion.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnAgregarComunicacion.setBounds(276, 342, 115, 39);
 		frame.getContentPane().add(btnAgregarComunicacion);
-		
-		frame.setBounds(200, 100, 680, 500);
-		frame.setLocationRelativeTo(null);
-		frame.setResizable(false);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+
+	private void inicializarBtnVolverMenu() {
+		btnVolverMenu = new JButton("Menu");
+		btnVolverMenu.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnVolverMenu.setBounds(276, 402, 115, 39);
+		frame.getContentPane().add(btnVolverMenu);
 	}
 }

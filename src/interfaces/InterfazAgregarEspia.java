@@ -1,12 +1,15 @@
 package interfaces;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextArea;
+
+import entidades.RedEspias;
+import excepciones.EspiaExcepcion;
+
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,38 +18,48 @@ import javax.swing.JButton;
 
 public class InterfazAgregarEspia {
 
+	private InterfazMenu interfazMenu;
+	private RedEspias redEspias = new RedEspias();
+
 	private JFrame frame;
+
 	private JTextArea inputEspia;
 	private JLabel lblIngreseEspia;
 
 	private JButton btnAgregarEspia;
+	private JButton btnVolverMenu;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					InterfazAgregarEspia window = new InterfazAgregarEspia();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
 	public InterfazAgregarEspia() {
 		InicializarFrame();
 		btnAgregarEspia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				String nombreEspia = inputEspia.getText();
+				try {
+					redEspias.agregarEspia(nombreEspia);
+				} catch (EspiaExcepcion eE) {
+					System.out.println(eE.getMessage());
+					System.out.println();
+				}
 			}
 		});
+		btnVolverMenu.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				volverMenu();
+			}
+		});
+	}
+
+	public void mostrarVentana(RedEspias redEspias, InterfazMenu interfazMenu) {
+//		System.out.println("asdas");
+		this.interfazMenu = interfazMenu;
+		this.redEspias = redEspias;
+		frame.setVisible(true);
+	}
+
+	private void volverMenu() {
+		frame.setVisible(false);
+		interfazMenu.mostrarVentana(redEspias);
 	}
 
 	// Inicializacion de Variables
@@ -56,7 +69,7 @@ public class InterfazAgregarEspia {
 		InitLabelIngreseEspia();
 		InitInputEspia();
 		InitButtonAgregar();
-
+		inicializarBtnVolverMenu();
 	}
 
 	// Inicializacion del Frame.
@@ -66,6 +79,9 @@ public class InterfazAgregarEspia {
 		frame.setBackground(Color.BLUE);
 		frame.getContentPane().setBackground(new Color(0, 0, 51));
 		frame.getContentPane().setLayout(null);
+		frame.setBounds(200, 100, 680, 500);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(false);
 	}
 
 	private void InitLabelIngreseEspia() {
@@ -93,5 +109,12 @@ public class InterfazAgregarEspia {
 		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+
+	private void inicializarBtnVolverMenu() {
+		btnVolverMenu = new JButton("Menu");
+		btnVolverMenu.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnVolverMenu.setBounds(273, 334, 115, 39);
+		frame.getContentPane().add(btnVolverMenu);
 	}
 }
