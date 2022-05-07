@@ -17,7 +17,7 @@ import java.awt.event.ActionEvent;
 public class InterfazMenu {
 
 	private final InterfazAgregarEspia interfazAgregarEspia = new InterfazAgregarEspia();
-	private final InterfazAgregarComunicacion interfazAgregarComunicacion = new InterfazAgregarComunicacion();
+	private InterfazAgregarComunicacion interfazAgregarComunicacion = new InterfazAgregarComunicacion();
 	private RedEspias redEspias = new RedEspias();
 
 	private JFrame frameMenu;
@@ -90,6 +90,7 @@ public class InterfazMenu {
 
 	private void mostrarVentanaAgregarComunicacion() {
 		frameMenu.setVisible(false);
+		interfazAgregarComunicacion = new InterfazAgregarComunicacion();
 		interfazAgregarComunicacion.mostrarVentana(redEspias, this);
 	}
 
