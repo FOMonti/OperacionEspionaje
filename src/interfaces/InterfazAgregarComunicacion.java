@@ -14,6 +14,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
 import javax.swing.JButton;
@@ -34,7 +35,6 @@ public class InterfazAgregarComunicacion {
 
 	private JLabel lblEspiaEmisor;
 	private JTextArea inputEspiaEmisor;
-	private JComboBox<String> inputEmisor;
 
 	private JLabel lblEspiaReceptor;
 	private JTextArea inputEspiaReceptor;
@@ -45,6 +45,9 @@ public class InterfazAgregarComunicacion {
 	private JButton btnAgregarComunicacion;
 	private JButton btnVolverMenu;
 	
+	private JLabel lblInfo;
+	private JLabel lblError;
+	
 	
 	
 	
@@ -54,16 +57,23 @@ public class InterfazAgregarComunicacion {
 		InicializarFrame();
 		btnAgregarComunicacion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String espia1 = inputEspiaEmisor.getText();
-				String espia2 = inputEspiaReceptor.getText();
-				Double riesgo = Double.valueOf(inputRiesgo.getText());
-				
+				String espia1 = inputEspiaEmisor.getText().toUpperCase();
+				String espia2 = inputEspiaReceptor.getText().toUpperCase();
+				Double riesgo = Double.valueOf(inputRiesgo.getText().toUpperCase());
 				
 				try {
 					redEspias.agregarComunicacion(espia1, espia2, riesgo);
+					System.out.println("Se agrego la comunicacion con exito");
+					limpiarInputs();
+					lblInfo.setVisible(true);
+					lblError.setVisible(false);
 					
-				} catch (ComunicacionExcepcion eE) {
-					System.out.println(eE.getMessage());
+				}
+				catch (ComunicacionExcepcion eE ) {
+					lblError.setText("<html>" + eE.getMessage() + "</html>");
+					lblError.setVisible(true);
+					lblInfo.setVisible(false);
+					
 				}
 			}
 		});
@@ -81,13 +91,8 @@ public class InterfazAgregarComunicacion {
 		this.interfazMenu = interfazMenu;
 		
 		
-		
-		
-		
 		// Si se va a selecionar de listas las opciones, se inicializa aca
 		System.out.println(Arrays.toString(redEspias.arrEspias()));
-		
-		inicializarInputEmisor();
 		
 		frame.setVisible(true);
 		
@@ -124,6 +129,15 @@ public class InterfazAgregarComunicacion {
 
 		InitButtonAgregarComunicacion();
 		inicializarBtnVolverMenu();
+		
+		inicializarMensajesInfo();
+	}
+	
+	
+	private void limpiarInputs() {
+		inputEspiaEmisor.setText("");
+		inputEspiaReceptor.setText("");
+		inputRiesgo.setText("");
 	}
 
 	// Inicializacion del Frame.
@@ -152,7 +166,7 @@ public class InterfazAgregarComunicacion {
 		lblEspiaEmisor = new JLabel("Espia emisor:");
 		lblEspiaEmisor.setForeground(Color.WHITE);
 		lblEspiaEmisor.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblEspiaEmisor.setBounds(136, 94, 120, 25);
+		lblEspiaEmisor.setBounds(136, 117, 120, 25);
 		frame.getContentPane().add(lblEspiaEmisor);
 	}
 
@@ -160,7 +174,7 @@ public class InterfazAgregarComunicacion {
 		inputEspiaEmisor = new JTextArea();
 		inputEspiaEmisor.setMargin(new Insets(2, 15, 2, 2));
 		inputEspiaEmisor.setFont(new Font("Monospaced", Font.PLAIN, 20));
-		inputEspiaEmisor.setBounds(52, 130, 186, 31);
+		inputEspiaEmisor.setBounds(348, 114, 186, 31);
 		frame.getContentPane().add(inputEspiaEmisor);
 	}
 
@@ -176,7 +190,7 @@ public class InterfazAgregarComunicacion {
 		inputEspiaReceptor = new JTextArea();
 		inputEspiaReceptor.setMargin(new Insets(2, 15, 2, 2));
 		inputEspiaReceptor.setFont(new Font("Monospaced", Font.PLAIN, 20));
-		inputEspiaReceptor.setBounds(75, 231, 186, 31);
+		inputEspiaReceptor.setBounds(348, 180, 186, 31);
 		frame.getContentPane().add(inputEspiaReceptor);
 	}
 
@@ -210,25 +224,23 @@ public class InterfazAgregarComunicacion {
 		frame.getContentPane().add(btnVolverMenu);
 		
 		
+		
+		
 	}
-		
 	
-	private void inicializarInputEmisor() {
+	private void inicializarMensajesInfo(){
+		lblInfo = new JLabel("Se agrego con exito");
+		lblInfo.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblInfo.setForeground(Color.GREEN);
+		lblInfo.setBounds(402, 352, 164, 23);
+		frame.getContentPane().add(lblInfo);
+		lblInfo.setVisible(false);
 		
-		
-		
-		
-		inputEmisor = new JComboBox();
-		inputEmisor.setModel(new DefaultComboBoxModel(redEspias.arrEspias()));
-		inputEmisor.setBounds(348, 188, 192, 22);
-		frame.getContentPane().add(inputEmisor);
+		lblError = new JLabel("");
+		lblError.setForeground(Color.RED);
+		lblError.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblError.setBounds(10, 48, 644, 44);
+		frame.getContentPane().add(lblError);
+		lblError.setVisible(false);
 	}
-		
-		
-	
-		
-		
-	
-		
-		
 }

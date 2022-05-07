@@ -28,6 +28,9 @@ public class InterfazAgregarEspia {
 
 	private JButton btnAgregarEspia;
 	private JButton btnVolverMenu;
+	
+	private JLabel lblInfo;
+	private JLabel lblError;
 
 	public InterfazAgregarEspia() {
 		InicializarFrame();
@@ -36,9 +39,14 @@ public class InterfazAgregarEspia {
 				String nombreEspia = inputEspia.getText();
 				try {
 					redEspias.agregarEspia(nombreEspia);
+					System.out.println("Se agrego el espia con exito");
+					limpiarInput();
+					lblInfo.setVisible(true);
+					lblError.setVisible(false);
 				} catch (EspiaExcepcion eE) {
-					System.out.println(eE.getMessage());
-					System.out.println();
+					lblError.setText("<html>" + eE.getMessage() + "</html>");
+					lblError.setVisible(true);
+					lblInfo.setVisible(false);
 				}
 			}
 		});
@@ -50,6 +58,11 @@ public class InterfazAgregarEspia {
 		});
 	}
 
+	private void limpiarInput() {
+		inputEspia.setText("");
+	}
+
+	
 	public void mostrarVentana(RedEspias redEspias, InterfazMenu interfazMenu) {
 //		System.out.println("asdas");
 		this.interfazMenu = interfazMenu;
@@ -70,6 +83,7 @@ public class InterfazAgregarEspia {
 		InitInputEspia();
 		InitButtonAgregar();
 		inicializarBtnVolverMenu();
+		inicializarMensajesInfo();
 	}
 
 	// Inicializacion del Frame.
@@ -116,5 +130,21 @@ public class InterfazAgregarEspia {
 		btnVolverMenu.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnVolverMenu.setBounds(273, 334, 115, 39);
 		frame.getContentPane().add(btnVolverMenu);
+	}
+	
+	private void inicializarMensajesInfo(){
+		lblInfo = new JLabel("Se agrego con exito");
+		lblInfo.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblInfo.setForeground(Color.GREEN);
+		lblInfo.setBounds(257, 398, 164, 23);
+		frame.getContentPane().add(lblInfo);
+		lblInfo.setVisible(false);
+		
+		lblError = new JLabel("fffff");
+		lblError.setForeground(Color.RED);
+		lblError.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblError.setBounds(192, 48, 284, 44);
+		frame.getContentPane().add(lblError);
+		lblError.setVisible(false);
 	}
 }
