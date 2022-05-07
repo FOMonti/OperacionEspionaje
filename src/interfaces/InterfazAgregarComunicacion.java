@@ -50,8 +50,10 @@ public class InterfazAgregarComunicacion {
 				String espiaEmisor = espias[comboBoxEmisor.getSelectedIndex()];
 				String espiaReceptor = espias[comboBoxReceptor.getSelectedIndex()];
 				Double riesgo = Double.valueOf(inputRiesgo.getText().toUpperCase());
-
+				
 				try {
+					
+					
 					redEspias.agregarComunicacion(espiaEmisor, espiaReceptor, riesgo);
 					System.out.println("Se agrego la comunicacion con exito");
 					limpiarInputs();
@@ -189,7 +191,7 @@ public class InterfazAgregarComunicacion {
 	}
 
 	private void InitInputRiesgo() {
-		inputRiesgo = new JTextArea();
+		inputRiesgo = new JTextArea("");
 		inputRiesgo.setMargin(new Insets(2, 15, 2, 2));
 		inputRiesgo.setFont(new Font("Monospaced", Font.PLAIN, 20));
 		inputRiesgo.setBounds(348, 270, 186, 31);

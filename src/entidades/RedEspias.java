@@ -20,15 +20,26 @@ public class RedEspias extends Grafo<String, Double> {
 	}
 
 	public void agregarComunicacion(String espiaEmisor, String espiaReceptor, Double riesgo)
-			throws ComunicacionExcepcion {
-		try {
-			agregarArista(espiaEmisor.toUpperCase(), espiaReceptor.toUpperCase(), riesgo);
-		} catch (IllegalArgumentException e) {
-			throw new ComunicacionExcepcion(
-					"El o los espias no existe/n || Estas intentando comunicar a un espia consigo mismo --> "
-							+ "no existe la comunicacion : (" + espiaEmisor + ";" + espiaReceptor + ")");
+		throws ComunicacionExcepcion {
+		
+			if(espiaEmisor == "Seleccione un espia"|| espiaReceptor == "Seleccione un espia") {
+				throw new ComunicacionExcepcion(
+						 "Uno o ambos espias no son válidos.");
+			}
+			if(existeArista(espiaEmisor, espiaReceptor)) {
+				throw new ComunicacionExcepcion(
+						 "Ya existe la comunicacion : (" + espiaEmisor + ";" + espiaReceptor + ")");
+			}
+			try {
+				agregarArista(espiaEmisor.toUpperCase(), espiaReceptor.toUpperCase(), riesgo);
+			} catch (IllegalArgumentException e) {
+				throw new ComunicacionExcepcion(
+						"El o los espias no existe/n || Estas intentando comunicar a un espia consigo mismo --> "
+								+ "no existe la comunicacion : (" + espiaEmisor + ";" + espiaReceptor + ")");
+			}
+		
+				
 		}
-	}
 
 	public boolean existeComunicacion(String espiaEmisor, String espiaReceptor) throws ComunicacionExcepcion {
 		boolean ret = false;
