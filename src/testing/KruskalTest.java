@@ -1,5 +1,6 @@
 package testing;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -13,6 +14,7 @@ public class KruskalTest {
 
 	Grafo<String, Double> grafo1;
 	Grafo<String, Double> grafo2;
+	Grafo<String, Double> grafo3;
 	Kruskal<String> kruskal;
 	
 	public void inicializarGrafo1() {
@@ -51,6 +53,11 @@ public class KruskalTest {
 		grafo2.agregarArista("B", "C", 1d);
 		grafo2.agregarArista("C", "A", 4d);
 	}
+	
+	public void inicializarGrafo3() {
+		grafo3 = new Grafo<String, Double>();
+		grafo3.agregarVertice("A");
+	}
 
 
 	@Before
@@ -58,6 +65,7 @@ public class KruskalTest {
 		kruskal = new Kruskal<String>();
 		inicializarGrafo1();
 		inicializarGrafo2();
+		inicializarGrafo3();
 	}
 
 	@Test
@@ -70,7 +78,7 @@ public class KruskalTest {
 		assertFalse(arbol.existeArista("B", "H"));
 		assertFalse(arbol.existeArista("E", "F"));
 	}
-
+ 
 	@Test
 	public void testExiste() {
 		Grafo<String, Double> arbol = kruskal.arbolGeneradorMinimo(grafo1);
@@ -96,5 +104,22 @@ public class KruskalTest {
 		@SuppressWarnings("unused")
 		Grafo<String, Double> arbol = kruskal.arbolGeneradorMinimo(grafo2);
 	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void sinAristasTest() {
+		grafo3.agregarVertice("B");
+		
+		@SuppressWarnings("unused")
+		Grafo<String, Double> arbol = kruskal.arbolGeneradorMinimo(grafo3);
+	}
+	
+	@Test
+	public void unVerticeTest() {
+		
+		Grafo<String, Double> arbol = kruskal.arbolGeneradorMinimo(grafo3);
+		assertEquals(1, arbol.vertices().size());
+		assertEquals(0, arbol.vecinos("A").size());
+	}
+
 	
 }

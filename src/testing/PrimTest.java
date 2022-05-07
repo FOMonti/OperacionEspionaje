@@ -2,6 +2,7 @@ package testing;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -13,9 +14,9 @@ public class PrimTest {
 
 	Grafo<String, Double> grafo1;
 	Grafo<String, Double> grafo2;
+	Grafo<String, Double> grafo3;
 	Prim<String> prim;
 
-	
 	public void inicializarGrafo1() {
 		grafo1 = new Grafo<String, Double>();
 		grafo1.agregarVertice("A");
@@ -53,12 +54,18 @@ public class PrimTest {
 		grafo2.agregarArista("C", "A", 4d);
 		
 	}
+	
+	public void inicializarGrafo3() {
+		grafo3 = new Grafo<String, Double>();
+		grafo3.agregarVertice("A");
+	}
 
 	@Before
 	public void inicializar() {
 		prim = new Prim<String>();
 		inicializarGrafo1();
 		inicializarGrafo2();
+		inicializarGrafo3();
 	}
 	
 	@Test
@@ -99,6 +106,22 @@ public class PrimTest {
 
 		@SuppressWarnings("unused")
 		Grafo<String, Double> arbol = prim.arbolGeneradorMinimo(grafo2);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void sinAristasTest() {
+		grafo3.agregarVertice("B");
+		
+		@SuppressWarnings("unused")
+		Grafo<String, Double> arbol = prim.arbolGeneradorMinimo(grafo3);
+	}
+	
+	@Test
+	public void unVerticeTest() {
+		
+		Grafo<String, Double> arbol = prim.arbolGeneradorMinimo(grafo3);
+		assertEquals(1, arbol.vertices().size());
+		assertEquals(0, arbol.vecinos("A").size());
 	}
 
 }
