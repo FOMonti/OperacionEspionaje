@@ -120,6 +120,12 @@ public class KruskalTest {
 		assertEquals(1, arbol.vertices().size());
 		assertEquals(0, arbol.vecinos("A").size());
 	}
+	
+	@Test
+	public void tiempoTest() {
+		Grafo<String, Double> arbol = kruskal.arbolGeneradorMinimo(grafo1);
+		System.out.println(kruskal.getTiempo());
+	}
 
 	
 }

@@ -123,5 +123,17 @@ public class PrimTest {
 		assertEquals(1, arbol.vertices().size());
 		assertEquals(0, arbol.vecinos("A").size());
 	}
+	
+	@Test
+	public void tiempoTest() { //220900
+		Grafo<String, Double> arbol = prim.arbolGeneradorMinimo(grafo1);
+		System.out.println(prim.getTiempo());
+	}
 
 }
+
+
+
+
+
+

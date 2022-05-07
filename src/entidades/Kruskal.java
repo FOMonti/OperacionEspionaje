@@ -11,6 +11,7 @@ public class Kruskal<X> {
 	private Double pesoDeAristaAgregar;
 	private X verticeAgregar;
 	private X verticeReferencia;
+	private long tiempo;
 
 	public Kruskal() {
 		this.arbolGeneradorMinimo = new Grafo<X, Double>();
@@ -18,9 +19,12 @@ public class Kruskal<X> {
 	}
 
 	public Grafo<X, Double> arbolGeneradorMinimo(Grafo<X, Double> grafo) {
+		long inicio = System.nanoTime();
 		arbolGeneradorMinimo = new Grafo<X, Double>();
 		inicializarComponentesConexas(grafo.vertices());
 		armarArbol(grafo);
+		long fin = System.nanoTime();
+		tiempo = fin - inicio;
 		return arbolGeneradorMinimo;
 	}
 
@@ -86,5 +90,9 @@ public class Kruskal<X> {
 	private void inicializarComponentesConexas(Set<X> vertices) {
 		for (X vertice : vertices)
 			componentesConexas.put(vertice, vertice);
+	}
+	
+	public long getTiempo() {
+		return tiempo;
 	}
 }

@@ -6,15 +6,19 @@ public class Prim<X> {
 	private Double pesoDeAristaAgregar;
 	private X verticeAgregar;
 	private X verticeReferencia;
+	private long tiempo;
 
 	public Prim() {
 		this.arbolGeneradorMinimo = new Grafo<X, Double>();
 	}
 
 	public Grafo<X, Double> arbolGeneradorMinimo(Grafo<X, Double> grafo) {
+		long inicio = System.nanoTime();
 		X vertice = grafo.vertices().iterator().next();
 		arbolGeneradorMinimo = new Grafo<X, Double>();
 		armarArbol(grafo, vertice);
+		long fin = System.nanoTime();
+		tiempo = fin - inicio;
 		return arbolGeneradorMinimo;
 	}
 
@@ -45,5 +49,9 @@ public class Prim<X> {
 
 	public boolean estenTodosMarcados(Grafo<X, Double> grafo) {
 		return grafo.tamanio() == arbolGeneradorMinimo.tamanio();
+	}
+	
+	public long getTiempo() {
+		return this.tiempo;
 	}
 }
