@@ -7,6 +7,7 @@ public class Kruskal<X> {
 
 	private Grafo<X, Double> arbolGeneradorMinimo;
 	private HashMap<X, X> componentesConexas;
+	private Conexo<X, Double> conexo;
 
 	private Double pesoDeAristaAgregar;
 	private X verticeAgregar;
@@ -16,16 +17,23 @@ public class Kruskal<X> {
 	public Kruskal() {
 		this.arbolGeneradorMinimo = new Grafo<X, Double>();
 		this.componentesConexas = new HashMap<X, X>();
+		this.conexo = new Conexo<X, Double>();
 	}
 
 	public Grafo<X, Double> arbolGeneradorMinimo(Grafo<X, Double> grafo) {
 		long inicio = System.nanoTime();
+		if(grafo.vertices().size() == 1) return grafo;
+		excepcionNoEsConexo(grafo);
 		arbolGeneradorMinimo = new Grafo<X, Double>();
 		inicializarComponentesConexas(grafo.vertices());
 		armarArbol(grafo);
 		long fin = System.nanoTime();
 		tiempo = fin - inicio;
 		return arbolGeneradorMinimo;
+	}
+
+	private void excepcionNoEsConexo(Grafo<X, Double> grafo) {
+		if(!conexo.esConexo(grafo)) throw new IllegalArgumentException("El grafo no es conexo, no existe camino posible!");
 	}
 
 	private void armarArbol(Grafo<X, Double> grafo) {

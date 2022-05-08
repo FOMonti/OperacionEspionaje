@@ -2,6 +2,7 @@ package entidades;
 
 public class Prim<X> {
 	private Grafo<X, Double> arbolGeneradorMinimo;
+	private Conexo<X, Double> conexo;
 
 	private Double pesoDeAristaAgregar;
 	private X verticeAgregar;
@@ -10,16 +11,24 @@ public class Prim<X> {
 
 	public Prim() {
 		this.arbolGeneradorMinimo = new Grafo<X, Double>();
+		this.conexo = new Conexo<X, Double>();
 	}
 
 	public Grafo<X, Double> arbolGeneradorMinimo(Grafo<X, Double> grafo) {
 		long inicio = System.nanoTime();
+		if(grafo.vertices().size() == 1) return grafo;
+		excepcionNoEsConexo(grafo);
 		X vertice = grafo.vertices().iterator().next();
 		arbolGeneradorMinimo = new Grafo<X, Double>();
 		armarArbol(grafo, vertice);
 		long fin = System.nanoTime();
 		tiempo = fin - inicio;
 		return arbolGeneradorMinimo;
+	}
+
+	private void excepcionNoEsConexo(Grafo<X, Double> grafo) {
+		if(!conexo.esConexo(grafo)) throw new IllegalArgumentException("El grafo no es conexo, no existe camino posible!");
+		
 	}
 
 	private void armarArbol(Grafo<X, Double> grafo, X vertice) {

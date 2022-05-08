@@ -1,5 +1,6 @@
 package testing;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
@@ -10,6 +11,7 @@ import entidades.Grafo;
 
 public class esConexoTest {
 	Grafo<String, Double> grafo;
+	Grafo<String, Double> grafo2;
 
 	public void inicializarGrafo1() {
 		grafo = new Grafo<String, Double>();
@@ -37,15 +39,34 @@ public class esConexoTest {
 		grafo.agregarArista("G", "F", 3d);
 		grafo.agregarArista("F", "E", 10d);
 	}
+	
+	public void inicializarGrafo2() {
+		grafo2 = new Grafo<String, Double>();
+		grafo2.agregarVertice("A");
+	}
 
 	@Before
 	public void before() {
 		inicializarGrafo1();
+		inicializarGrafo2();
 	}
 
 	@Test
-	public void esConexoTrue() {
+	public void esConexoTest() {
 		Conexo<String, Double> conexo = new Conexo<String, Double>();
 		assertTrue(conexo.esConexo(grafo));
+	}
+	
+	@Test
+	public void noEsConexoTest() {
+		Conexo<String, Double> conexo = new Conexo<String, Double>();
+		grafo2.agregarVertice("B");
+		assertFalse(conexo.esConexo(grafo2));
+	}
+	
+	@Test
+	public void unVerticeTest() {
+		Conexo<String, Double> conexo = new Conexo<String, Double>();
+		assertTrue(conexo.esConexo(grafo2));
 	}
 }
