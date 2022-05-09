@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import entidades.Grafo;
 import entidades.Kruskal;
+import entidades.Kruskal2;
 
 public class KruskalTest {
 
@@ -16,7 +17,8 @@ public class KruskalTest {
 	Grafo<String, Double> grafo2;
 	Grafo<String, Double> grafo3;
 	Kruskal<String> kruskal;
-	
+	Kruskal2<String> kruskal2;
+
 	public void inicializarGrafo1() {
 		grafo1 = new Grafo<String, Double>();
 		grafo1.agregarVertice("A");
@@ -43,7 +45,7 @@ public class KruskalTest {
 		grafo1.agregarArista("G", "F", 3d);
 		grafo1.agregarArista("F", "E", 10d);
 	}
-	
+
 	public void inicializarGrafo2() {
 		grafo2 = new Grafo<String, Double>();
 		grafo2.agregarVertice("A");
@@ -53,12 +55,11 @@ public class KruskalTest {
 		grafo2.agregarArista("B", "C", 1d);
 		grafo2.agregarArista("C", "A", 4d);
 	}
-	
+
 	public void inicializarGrafo3() {
 		grafo3 = new Grafo<String, Double>();
 		grafo3.agregarVertice("A");
 	}
-
 
 	@Before
 	public void inicializar() {
@@ -78,7 +79,7 @@ public class KruskalTest {
 		assertFalse(arbol.existeArista("B", "H"));
 		assertFalse(arbol.existeArista("E", "F"));
 	}
- 
+
 	@Test
 	public void testExiste() {
 		Grafo<String, Double> arbol = kruskal.arbolGeneradorMinimo(grafo1);
@@ -93,34 +94,34 @@ public class KruskalTest {
 		assertTrue(arbol.existeArista("C", "D"));
 		assertTrue(arbol.existeArista("D", "E"));
 	}
-	
-	//deberia tirar excepcion
+
+	// deberia tirar excepcion
 	@Test(expected = IllegalArgumentException.class)
 	public void testNoEsConexo() {
 		grafo2.agregarVertice("D");
 		grafo2.agregarVertice("E");
 		grafo2.agregarArista("D", "E", 2d);
-		
+
 		@SuppressWarnings("unused")
 		Grafo<String, Double> arbol = kruskal.arbolGeneradorMinimo(grafo2);
 	}
-	
+
 	@Test(expected = IllegalArgumentException.class)
 	public void sinAristasTest() {
 		grafo3.agregarVertice("B");
-		
+
 		@SuppressWarnings("unused")
 		Grafo<String, Double> arbol = kruskal.arbolGeneradorMinimo(grafo3);
 	}
-	
+
 	@Test
 	public void unVerticeTest() {
-		
+
 		Grafo<String, Double> arbol = kruskal.arbolGeneradorMinimo(grafo3);
 		assertEquals(1, arbol.vertices().size());
 		assertEquals(0, arbol.vecinos("A").size());
 	}
-	
+
 	@Test
 	public void tiempoTest() {
 		@SuppressWarnings("unused")
@@ -128,5 +129,4 @@ public class KruskalTest {
 		System.out.println(kruskal.getTiempo());
 	}
 
-	
 }
