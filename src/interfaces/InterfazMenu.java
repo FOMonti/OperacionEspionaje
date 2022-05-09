@@ -18,8 +18,8 @@ public class InterfazMenu {
 
 	private final InterfazAgregarEspia interfazAgregarEspia = new InterfazAgregarEspia();
 	private InterfazAgregarComunicacion interfazAgregarComunicacion = new InterfazAgregarComunicacion();
+	private InterfazArbol interfazArbol = new InterfazArbol();
 	private RedEspias redEspias = new RedEspias();
-
 	private JFrame frameMenu;
 
 	private JLabel lblTituloInicio;
@@ -56,6 +56,7 @@ public class InterfazMenu {
 		});
 		btnArbolGeneradorMinimo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				mostrarVentanaArbol();
 			}
 		});
 	}
@@ -79,6 +80,7 @@ public class InterfazMenu {
 		});
 		btnArbolGeneradorMinimo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				mostrarVentanaArbol();
 			}
 		});
 	}
@@ -92,6 +94,11 @@ public class InterfazMenu {
 		frameMenu.setVisible(false);
 		interfazAgregarComunicacion = new InterfazAgregarComunicacion();
 		interfazAgregarComunicacion.mostrarVentana(redEspias, this);
+	}
+	
+	public void mostrarVentanaArbol() {
+		frameMenu.setVisible(false);
+		interfazArbol.mostrarVentana(redEspias, this);
 	}
 
 	// Inicializacion de Variables:

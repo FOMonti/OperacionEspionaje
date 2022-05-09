@@ -49,23 +49,27 @@ public class InterfazAgregarComunicacion {
 			public void actionPerformed(ActionEvent e) {
 				String espiaEmisor = espias[comboBoxEmisor.getSelectedIndex()];
 				String espiaReceptor = espias[comboBoxReceptor.getSelectedIndex()];
-				Double riesgo = Double.valueOf(inputRiesgo.getText().toUpperCase());
-				
-				try {
-					
-					
-					redEspias.agregarComunicacion(espiaEmisor, espiaReceptor, riesgo);
-					System.out.println("Se agrego la comunicacion con exito");
-					limpiarInputs();
-					lblInfo.setVisible(true);
-					lblError.setVisible(false);
+				if(!inputRiesgo.getText().isEmpty() && !(espiaEmisor == "Seleccione un espia") && !(espiaReceptor == "Seleccione un espia")) {
+					Double riesgo = Double.valueOf(inputRiesgo.getText().toUpperCase());
+					try {
+						redEspias.agregarComunicacion(espiaEmisor, espiaReceptor, riesgo);
+						System.out.println("Se agrego la comunicacion con exito");
+						limpiarInputs();
+						lblInfo.setVisible(true);
+						lblError.setVisible(false);
 
-				} catch (ComunicacionExcepcion eE) {
-					lblError.setText("<html>" + eE.getMessage() + "</html>");
+					} catch (ComunicacionExcepcion eE) {
+						lblError.setText("<html>" + eE.getMessage() + "</html>");
+						lblError.setVisible(true);
+						lblInfo.setVisible(false);
+
+					}
+				} else {
+					lblError.setText("Debe completar todos los campos");
 					lblError.setVisible(true);
 					lblInfo.setVisible(false);
-
 				}
+					
 			}
 		});
 		btnVolverMenu.addActionListener(new ActionListener() {

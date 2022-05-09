@@ -123,6 +123,7 @@ public class KruskalTest {
 	
 	@Test
 	public void tiempoTest() {
+		@SuppressWarnings("unused")
 		Grafo<String, Double> arbol = kruskal.arbolGeneradorMinimo(grafo1);
 		System.out.println(kruskal.getTiempo());
 	}

@@ -126,6 +126,7 @@ public class PrimTest {
 	
 	@Test
 	public void tiempoTest() { //220900
+		@SuppressWarnings("unused")
 		Grafo<String, Double> arbol = prim.arbolGeneradorMinimo(grafo1);
 		System.out.println(prim.getTiempo());
 	}

@@ -36,15 +36,22 @@ public class InterfazAgregarEspia {
 		InicializarFrame();
 		btnAgregarEspia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String nombreEspia = inputEspia.getText();
-				try {
-					redEspias.agregarEspia(nombreEspia);
-					System.out.println("Se agrego el espia con exito");
-					limpiarInput();
-					lblInfo.setVisible(true);
-					lblError.setVisible(false);
-				} catch (EspiaExcepcion eE) {
-					lblError.setText("<html>" + eE.getMessage() + "</html>");
+				
+				if(!inputEspia.getText().isEmpty()) {
+					String nombreEspia = inputEspia.getText();
+					try {
+						redEspias.agregarEspia(nombreEspia);
+						System.out.println("Se agrego el espia con exito");
+						limpiarInput();
+						lblInfo.setVisible(true);
+						lblError.setVisible(false);
+					} catch (EspiaExcepcion eE) {
+						lblError.setText("<html>" + eE.getMessage() + "</html>");
+						lblError.setVisible(true);
+						lblInfo.setVisible(false);
+					} 
+				} else {
+					lblError.setText("Debe completar el campo");
 					lblError.setVisible(true);
 					lblInfo.setVisible(false);
 				}

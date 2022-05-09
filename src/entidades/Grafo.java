@@ -45,7 +45,7 @@ public class Grafo<X, Y> {
 
 	public Set<X> vecinos(X vertice) {
 		if (!vertices.containsKey(vertice))
-			throw new IllegalArgumentException("No existe el veritce: " + vertice);
+			throw new IllegalArgumentException("No existe el vertice: " + vertice);
 		return vertices.get(vertice).keySet();
 	}
 
@@ -54,9 +54,9 @@ public class Grafo<X, Y> {
 	}
 
 	private void verificarArista(X vertice1, X vertice2) {
-		if (!vertices.containsKey(vertice1) || !vertices.containsKey(vertice2) || vertice1.equals(vertice2))
-			throw new IllegalArgumentException(
-					"El o los vertice no existe/n || son iguales: no se permiten loops--> no existe la arista : ("
-							+ vertice1 + ";" + vertice2 + ")");
+		if (!vertices.containsKey(vertice1) || !vertices.containsKey(vertice2)) throw new IllegalArgumentException("El/Los vertices no existen");
+	
+		if (vertice1.equals(vertice2)) throw new IllegalArgumentException("No se permiten loops");
+		
 	}
 }

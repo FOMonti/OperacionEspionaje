@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 //import java.util.HashMap;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 //
 //import java.util.Set;
@@ -18,7 +17,6 @@ public class AristasTest {
 
 	private Grafo<Integer, Double> grafo;
 	private Grafo<String, Double> grafo2;
-//	private Grafo<String, Double> grafo3;
 
 	private void inicializarGrafo1() {
 		grafo = new Grafo<Integer, Double>();

@@ -22,20 +22,21 @@ public class RedEspias extends Grafo<String, Double> {
 	public void agregarComunicacion(String espiaEmisor, String espiaReceptor, Double riesgo)
 		throws ComunicacionExcepcion {
 		
+		/* Esto rompe las excepciones por algun motivo: ComunicacionExcepcion pasa a ser IllegalArgumentExcepcion
 			if(espiaEmisor == "Seleccione un espia"|| espiaReceptor == "Seleccione un espia") {
-				throw new ComunicacionExcepcion(
-						 "Uno o ambos espias no son válidos.");
+				throw new ComunicacionExcepcion("Uno o ambos espias no son vï¿½lidos.");
 			}
+			
+			Este if no es necesario ya que la logica es que se sobreescribe, aun asi rompe las excepciones
 			if(existeArista(espiaEmisor, espiaReceptor)) {
-				throw new ComunicacionExcepcion(
-						 "Ya existe la comunicacion : (" + espiaEmisor + ";" + espiaReceptor + ")");
+				throw new ComunicacionExcepcion("Ya existe la comunicacion : (" + espiaEmisor + ";" + espiaReceptor + ")");
 			}
+			*/
+		
 			try {
 				agregarArista(espiaEmisor.toUpperCase(), espiaReceptor.toUpperCase(), riesgo);
 			} catch (IllegalArgumentException e) {
-				throw new ComunicacionExcepcion(
-						"El o los espias no existe/n || Estas intentando comunicar a un espia consigo mismo --> "
-								+ "no existe la comunicacion : (" + espiaEmisor + ";" + espiaReceptor + ")");
+				throw new ComunicacionExcepcion("Estas comunicando un espia consigo mismo");
 			}
 		
 				
