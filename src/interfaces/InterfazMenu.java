@@ -16,7 +16,7 @@ import java.awt.event.ActionEvent;
 
 public class InterfazMenu {
 
-	private final InterfazAgregarEspia interfazAgregarEspia = new InterfazAgregarEspia();
+	private InterfazAgregarEspia interfazAgregarEspia;
 	private InterfazAgregarComunicacion interfazAgregarComunicacion;
 	private InterfazArbol interfazArbol = new InterfazArbol();
 	private RedEspias redEspias = new RedEspias();
@@ -42,6 +42,8 @@ public class InterfazMenu {
 	}
 
 	public InterfazMenu() {
+		interfazAgregarEspia = new InterfazAgregarEspia();
+		interfazAgregarComunicacion = new InterfazAgregarComunicacion();
 		initialize();
 		frameMenu.setVisible(true);
 		btnAgregarEspia.addActionListener(new ActionListener() {
@@ -61,7 +63,6 @@ public class InterfazMenu {
 		});
 	}
 
-
 	private void initialize() {
 		inicializarFrame();
 		btnAgregarEspia.addActionListener(new ActionListener() {
@@ -80,7 +81,7 @@ public class InterfazMenu {
 			}
 		});
 	}
-	
+
 	public void mostrarVentana(RedEspias redEspias) {
 		this.redEspias = redEspias;
 		frameMenu.setVisible(true);
@@ -88,15 +89,14 @@ public class InterfazMenu {
 
 	private void mostrarVentanaAgregarEspia() {
 		frameMenu.setVisible(false);
-		interfazAgregarEspia.mostrarVentana(redEspias, this);
+		interfazAgregarEspia.mostrarVentana(redEspias);
 	}
 
 	private void mostrarVentanaAgregarComunicacion() {
 		frameMenu.setVisible(false);
-		interfazAgregarComunicacion = new InterfazAgregarComunicacion();
-		interfazAgregarComunicacion.mostrarVentana(redEspias, this);
+		interfazAgregarComunicacion.mostrarVentana(redEspias);
 	}
-	
+
 	public void mostrarVentanaArbol() {
 		frameMenu.setVisible(false);
 		interfazArbol.mostrarVentana(redEspias, this);

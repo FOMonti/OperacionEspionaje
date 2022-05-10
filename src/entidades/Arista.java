@@ -1,12 +1,12 @@
 package entidades;
 
-public class Arista<X> {
+public class Arista<X, Y> {
 
 	private X vertice1;
 	private X vertice2;
-	private Double peso;
+	private Y peso;
 
-	public Arista(X vertice1, X vertice2, Double peso) {
+	public Arista(X vertice1, X vertice2, Y peso) {
 		this.vertice1 = vertice1;
 		this.vertice2 = vertice2;
 		this.peso = peso;
@@ -20,7 +20,7 @@ public class Arista<X> {
 		return vertice2;
 	}
 
-	public Double getPeso() {
+	public Y getPeso() {
 		return peso;
 	}
 
@@ -28,10 +28,10 @@ public class Arista<X> {
 	@Override
 	public boolean equals(Object obj) {
 
-		return equals((Arista<X>) obj);
+		return equals((Arista<X, Y>) obj);
 	}
 
-	public boolean equals(Arista<X> arista) {
+	public boolean equals(Arista<X, Y> arista) {
 		if (this.peso.equals(arista.peso)) {
 			if (this.vertice1 == arista.vertice1 || this.vertice1 == arista.vertice2) {
 				if (this.vertice2.equals(this.vertice1) || this.vertice2.equals(this.vertice2)) {

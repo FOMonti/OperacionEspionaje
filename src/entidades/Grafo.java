@@ -1,14 +1,18 @@
 package entidades;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 public class Grafo<X, Y> {
 
 	private HashMap<X, HashMap<X, Y>> vertices;
+	private List<Arista<X, Y>> aristas;
 
 	public Grafo() {
 		this.vertices = new HashMap<X, HashMap<X, Y>>();
+		this.aristas = new ArrayList<Arista<X, Y>>();
 	}
 
 	public void agregarVertice(X vertice) {
@@ -21,6 +25,7 @@ public class Grafo<X, Y> {
 		verificarArista(vertice1, vertice2);
 		vertices.get(vertice1).put(vertice2, peso);
 		vertices.get(vertice2).put(vertice1, peso);
+		aristas.add(new Arista<X, Y>(vertice1, vertice2, peso));
 	}
 
 	public boolean existeArista(X vertice1, X vertice2) {
@@ -48,15 +53,19 @@ public class Grafo<X, Y> {
 			throw new IllegalArgumentException("No existe el vertice: " + vertice);
 		return vertices.get(vertice).keySet();
 	}
-	
+
+	public List<Arista<X, Y>> aristas() {
+		return this.aristas;
+	}
+
 	public int maxVecinos() {
 		int max = 0;
-		for(X vertice: vertices()) {
+		for (X vertice : vertices()) {
 			int cont = 0;
-			for(X vecino: vecinos(vertice)) {
+			for (X vecino : vecinos(vertice)) {
 				cont++;
 			}
-			if(cont > max) {
+			if (cont > max) {
 				max = cont;
 			}
 		}
@@ -68,26 +77,25 @@ public class Grafo<X, Y> {
 	}
 
 	private void verificarArista(X vertice1, X vertice2) {
-		if (!vertices.containsKey(vertice1) || !vertices.containsKey(vertice2)) throw new IllegalArgumentException("El/Los vertices no existen");
-	
-		if (vertice1.equals(vertice2)) throw new IllegalArgumentException("No se permiten loops");
-		
+		if (!vertices.containsKey(vertice1) || !vertices.containsKey(vertice2))
+			throw new IllegalArgumentException("El/Los vertices no existen");
+
+		if (vertice1.equals(vertice2))
+			throw new IllegalArgumentException("No se permiten loops");
+
 	}
-	
-	/* VERTICE: {VECINOS}
-	 * A: {B,C,D}
-	 * B: {A,C}
-	 * C: {A,B}
-	 * D: {A}
+
+	/*
+	 * VERTICE: {VECINOS} A: {B,C,D} B: {A,C} C: {A,B} D: {A}
 	 */
-	
+
 	@Override
 	public String toString() {
 		String ret = "";
-		for(X vertice: vertices.keySet()) {
+		for (X vertice : vertices.keySet()) {
 			String vecinos = "{";
 			ret = ret + vertice + ": ";
-			for(X vecino: vecinos(vertice)) {
+			for (X vecino : vecinos(vertice)) {
 				vecinos = vecinos + vecino + ",";
 			}
 			ret = ret + vecinos + "} // \n";
@@ -95,11 +103,3 @@ public class Grafo<X, Y> {
 		return ret;
 	}
 }
-
-
-
-
-
-
-
-

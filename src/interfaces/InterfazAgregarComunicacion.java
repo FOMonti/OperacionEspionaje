@@ -18,8 +18,7 @@ import javax.swing.SwingConstants;
 
 public class InterfazAgregarComunicacion {
 
-	private InterfazMenu interfazMenu;
-	private RedEspias redEspias = new RedEspias();
+	private RedEspias redEspias;
 
 	private JFrame frame;
 
@@ -45,11 +44,15 @@ public class InterfazAgregarComunicacion {
 	public InterfazAgregarComunicacion() {
 
 		InicializarFrame();
+		InitComboBoxEmisor();
+		InitComboBoxReceptor();
 		btnAgregarComunicacion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String espiaEmisor = espias[comboBoxEmisor.getSelectedIndex()];
 				String espiaReceptor = espias[comboBoxReceptor.getSelectedIndex()];
-				if(!inputRiesgo.getText().isEmpty() && !(espiaEmisor == "Seleccione un espia") && !(espiaReceptor == "Seleccione un espia")) {
+
+				if (!inputRiesgo.getText().isEmpty() && !(espiaEmisor == "Seleccione un espia")
+						&& !(espiaReceptor == "Seleccione un espia")) {
 					Double riesgo = Double.valueOf(inputRiesgo.getText().toUpperCase());
 					try {
 						redEspias.agregarComunicacion(espiaEmisor, espiaReceptor, riesgo);
@@ -69,7 +72,7 @@ public class InterfazAgregarComunicacion {
 					lblError.setVisible(true);
 					lblInfo.setVisible(false);
 				}
-					
+
 			}
 		});
 		btnVolverMenu.addActionListener(new ActionListener() {
@@ -80,12 +83,12 @@ public class InterfazAgregarComunicacion {
 		});
 	}
 
-	public void mostrarVentana(RedEspias redEspias, InterfazMenu interfazMenu) {
+	public void mostrarVentana(RedEspias redEspias) {
 		this.redEspias = redEspias;
-		this.interfazMenu = interfazMenu;
 		espias = array(redEspias.espias());
-		InitComboBoxReceptor();
-		InitComboBoxEmisor();
+		comboBoxReceptor.setModel(new DefaultComboBoxModel<String>(espias));
+		comboBoxEmisor.setModel(new DefaultComboBoxModel<String>(espias));
+
 		frame.setVisible(true);
 	}
 
@@ -103,7 +106,7 @@ public class InterfazAgregarComunicacion {
 	private void volverMenu() {
 
 		frame.setVisible(false);
-
+		InterfazMenu interfazMenu = new InterfazMenu();
 		interfazMenu.mostrarVentana(redEspias);
 
 	}
@@ -164,7 +167,6 @@ public class InterfazAgregarComunicacion {
 	private void InitComboBoxEmisor() {
 		comboBoxEmisor = new JComboBox<String>();
 		comboBoxEmisor.setBounds(270, 114, 270, 31);
-		comboBoxEmisor.setModel(new DefaultComboBoxModel<String>(espias));
 		comboBoxEmisor.setFont(new Font("Monospaced", Font.PLAIN, 20));
 		frame.getContentPane().add(comboBoxEmisor);
 
@@ -181,7 +183,6 @@ public class InterfazAgregarComunicacion {
 	private void InitComboBoxReceptor() {
 		comboBoxReceptor = new JComboBox<String>();
 		comboBoxReceptor.setBounds(270, 180, 270, 31);
-		comboBoxReceptor.setModel(new DefaultComboBoxModel<String>(espias));
 		comboBoxReceptor.setFont(new Font("Monospaced", Font.PLAIN, 20));
 		frame.getContentPane().add(comboBoxReceptor);
 	}

@@ -30,7 +30,7 @@ public class Main {
 //		Kruskal<String> kruskal = new Kruskal<String>();
 //		Grafo<String, Double> arbol1 = kruskal.arbolGeneradorMinimo(grafo1);
 //		System.out.println(kruskal.getTiempo());
-		Kruskal2<String> kruskal2 = new Kruskal2<String>();
+		Kruskal<String> kruskal2 = new Kruskal<String>();
 		Grafo<String, Double> arbol2 = kruskal2.arbolGeneradorMinimo(grafo1);
 		System.out.println(kruskal2.getTiempo() + "   |" + arbol2.tamanio());
 

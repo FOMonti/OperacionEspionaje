@@ -4,14 +4,11 @@ import java.util.Set;
 
 import excepciones.ComunicacionExcepcion;
 import excepciones.EspiaExcepcion;
-import entidades.Prim;
-import entidades.Kruskal;
 
 public class RedEspias extends Grafo<String, Double> {
-	
+
 	Prim<String> prim;
 	Kruskal<String> kruskal;
-	Kruskal2<String> kruskal2;
 	Grafo<String, Double> arbol;
 
 	public RedEspias() {
@@ -27,15 +24,15 @@ public class RedEspias extends Grafo<String, Double> {
 	}
 
 	public void agregarComunicacion(String espiaEmisor, String espiaReceptor, Double riesgo)
-		throws ComunicacionExcepcion {
+			throws ComunicacionExcepcion {
 
-			try {
-				agregarArista(espiaEmisor.toUpperCase(), espiaReceptor.toUpperCase(), riesgo);
-			} catch (IllegalArgumentException e) {
-				throw new ComunicacionExcepcion("Estas comunicando un espia consigo mismo");
-			}
-		
+		try {
+			agregarArista(espiaEmisor.toUpperCase(), espiaReceptor.toUpperCase(), riesgo);
+		} catch (IllegalArgumentException e) {
+			throw new ComunicacionExcepcion("Estas comunicando un espia consigo mismo");
 		}
+
+	}
 
 	public boolean existeComunicacion(String espiaEmisor, String espiaReceptor) throws ComunicacionExcepcion {
 		boolean ret = false;
@@ -48,7 +45,6 @@ public class RedEspias extends Grafo<String, Double> {
 		}
 		return ret;
 	}
-	
 
 	public Double riesgo(String espiaEmisor, String espiaReceptor) throws ComunicacionExcepcion {
 		Double ret = 0d;
@@ -61,7 +57,7 @@ public class RedEspias extends Grafo<String, Double> {
 		}
 		return ret;
 	}
-	
+
 	public Grafo<String, Double> prim() throws ComunicacionExcepcion {
 		prim = new Prim<String>();
 		arbol = new Grafo<String, Double>();
@@ -72,24 +68,24 @@ public class RedEspias extends Grafo<String, Double> {
 			throw new ComunicacionExcepcion("No existe camino posible para el mensaje");
 		}
 	}
-	
+
 	public Grafo<String, Double> kruskal() throws ComunicacionExcepcion {
-		kruskal2 = new Kruskal2<String>();
+		kruskal = new Kruskal<String>();
 		arbol = new Grafo<String, Double>();
 		try {
-			arbol = kruskal2.arbolGeneradorMinimo(this);
+			arbol = kruskal.arbolGeneradorMinimo(this);
 			return arbol;
 		} catch (IllegalArgumentException e) {
 			throw new ComunicacionExcepcion("No existe camino posible para el mensaje");
 		}
 	}
-	
+
 	public long getTiempoPrim() {
 		return prim.getTiempo();
 	}
-	
+
 	public long getTiempoKruskal() {
-		return kruskal2.getTiempo();
+		return kruskal.getTiempo();
 	}
 
 	public Set<String> espias() {
@@ -104,30 +100,22 @@ public class RedEspias extends Grafo<String, Double> {
 			throw new EspiaExcepcion("No existe: " + espia + " en la red de espias");
 		}
 		return contactos;
-	
-	}
-	
-	
-	
-	// Function to convert Set<String> to String[]
-    public String[] arrEspias()
-    {
-    	
-        // Create String[] of size of setOfString
-        String[] arrayOfString = new String[this.espias().size()];
-  
-        // Copy elements from set to string array
-        // using advanced for loop
-        int index = 0;
-        for (String str : this.espias())
-            arrayOfString[index++] = str;
-  
-        // return the formed String[]
-        return arrayOfString;
-    }
-}
-	
-	
-    
-	
 
+	}
+
+	// Function to convert Set<String> to String[]
+	public String[] arrEspias() {
+
+		// Create String[] of size of setOfString
+		String[] arrayOfString = new String[this.espias().size()];
+
+		// Copy elements from set to string array
+		// using advanced for loop
+		int index = 0;
+		for (String str : this.espias())
+			arrayOfString[index++] = str;
+
+		// return the formed String[]
+		return arrayOfString;
+	}
+}

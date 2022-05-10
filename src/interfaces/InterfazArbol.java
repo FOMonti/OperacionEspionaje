@@ -22,10 +22,8 @@ import javax.swing.JButton;
 
 import entidades.Grafo;
 
-
-
 public class InterfazArbol {
-	
+
 	private InterfazMenu interfazMenu;
 	private DefaultTableModel model = new DefaultTableModel();
 	private RedEspias redEspias;
@@ -34,7 +32,7 @@ public class InterfazArbol {
 	private JFrame frame;
 	private JLabel titulo;
 	private JButton btnVolverMenu;
-	
+
 	private JButton btnPrim;
 	private JButton btnKruskal;
 	private JTable tabla;
@@ -43,21 +41,21 @@ public class InterfazArbol {
 
 	public InterfazArbol() {
 		inicializarFrame();
-		
+
 		btnPrim.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				mostrarPrim();
 			}
 		});
-		
+
 		btnKruskal.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				mostrarKruskal();
 			}
 		});
-		
+
 		btnVolverMenu.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -65,7 +63,7 @@ public class InterfazArbol {
 			}
 		});
 	}
-	
+
 	public void mostrarVentana(RedEspias redEspias, InterfazMenu interfazMenu) {
 		this.interfazMenu = interfazMenu;
 		this.redEspias = redEspias;
@@ -76,7 +74,7 @@ public class InterfazArbol {
 		frame.setVisible(false);
 		interfazMenu.mostrarVentana(redEspias);
 	}
-	
+
 	private void mostrarPrim() {
 		try {
 			arbol = redEspias.prim();
@@ -88,7 +86,7 @@ public class InterfazArbol {
 			labelError.setVisible(true);
 		}
 	}
-	
+
 	private void mostrarKruskal() {
 		try {
 			arbol = redEspias.kruskal();
@@ -100,7 +98,7 @@ public class InterfazArbol {
 			labelError.setVisible(true);
 		}
 	}
-	
+
 	public void inicializarFrame() {
 		initFrame();
 		initLabelTitulo();
@@ -111,7 +109,7 @@ public class InterfazArbol {
 		initTabla();
 		initBtnVolverMenu();
 	}
-	
+
 	private void initFrame() {
 		frame = new JFrame();
 		frame.getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -122,7 +120,7 @@ public class InterfazArbol {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(false);
 	}
-	
+
 	private void initLabelTitulo() {
 		titulo = new JLabel("Arbol Generador Minimo");
 		titulo.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -130,21 +128,21 @@ public class InterfazArbol {
 		titulo.setBounds(222, 35, 226, 25);
 		frame.getContentPane().add(titulo);
 	}
-	
+
 	private void initBtnPrim() {
 		btnPrim = new JButton("Prim");
 		btnPrim.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnPrim.setBounds(209, 71, 89, 23);
 		frame.getContentPane().add(btnPrim);
 	}
-	
+
 	private void initBtnKruskal() {
 		btnKruskal = new JButton("Kruskal");
 		btnKruskal.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnKruskal.setBounds(359, 71, 89, 23);
 		frame.getContentPane().add(btnKruskal);
 	}
-	
+
 	private void initLabelTiempo() {
 		labelTiempo = new JLabel("");
 		labelTiempo.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -153,7 +151,7 @@ public class InterfazArbol {
 		labelTiempo.setBounds(10, 11, 191, 33);
 		frame.getContentPane().add(labelTiempo);
 	}
-	
+
 	private void initLabelError() {
 		labelError = new JLabel("");
 		labelError.setHorizontalAlignment(SwingConstants.CENTER);
@@ -162,7 +160,7 @@ public class InterfazArbol {
 		labelError.setBounds(66, 105, 524, 25);
 		frame.getContentPane().add(labelError);
 	}
-	
+
 	private void initTabla() {
 		this.tabla = new JTable();
 		JScrollPane scrollPane = new JScrollPane();
@@ -171,14 +169,14 @@ public class InterfazArbol {
 		scrollPane.setViewportView(tabla);
 		this.tabla.setModel(model);
 	}
-	
+
 	private void initBtnVolverMenu() {
 		btnVolverMenu = new JButton("Menu");
 		btnVolverMenu.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnVolverMenu.setBounds(276, 402, 115, 39);
 		frame.getContentPane().add(btnVolverMenu);
 	}
-	
+
 	private void llenarTabla() throws ComunicacionExcepcion {
 		model = new DefaultTableModel();
 		model.addColumn("Vertice");
@@ -186,11 +184,10 @@ public class InterfazArbol {
 		for (int i = 0; i < arbol.maxVecinos(); i++) {
 			model.addColumn("Vecino >> Riesgo");
 		}
-		
-		for (String vertice: arbol.vertices()) {
-			Vector<String> row = new Vector<String>(arbol.maxVecinos()+1);
+		for (String vertice : arbol.vertices()) {
+			Vector<String> row = new Vector<String>(arbol.maxVecinos() + 1);
 			row.add(vertice);
-			for(String vecino: arbol.vecinos(vertice)) {
+			for (String vecino : arbol.vecinos(vertice)) {
 				row.add(vecino + " >> " + redEspias.riesgo(vertice, vecino));
 			}
 			model.addRow(row);

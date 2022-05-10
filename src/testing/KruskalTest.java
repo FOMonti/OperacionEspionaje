@@ -9,15 +9,14 @@ import org.junit.Test;
 
 import entidades.Grafo;
 import entidades.Kruskal;
-import entidades.Kruskal2;
 
 public class KruskalTest {
 
 	Grafo<String, Double> grafo1;
 	Grafo<String, Double> grafo2;
 	Grafo<String, Double> grafo3;
+	Kruskal<String> kruskal2;
 	Kruskal<String> kruskal;
-	Kruskal2<String> kruskal2;
 
 	public void inicializarGrafo1() {
 		grafo1 = new Grafo<String, Double>();

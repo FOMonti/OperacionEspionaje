@@ -18,7 +18,6 @@ import javax.swing.JButton;
 
 public class InterfazAgregarEspia {
 
-	private InterfazMenu interfazMenu;
 	private RedEspias redEspias = new RedEspias();
 
 	private JFrame frame;
@@ -28,7 +27,7 @@ public class InterfazAgregarEspia {
 
 	private JButton btnAgregarEspia;
 	private JButton btnVolverMenu;
-	
+
 	private JLabel lblInfo;
 	private JLabel lblError;
 
@@ -36,8 +35,8 @@ public class InterfazAgregarEspia {
 		InicializarFrame();
 		btnAgregarEspia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				if(!inputEspia.getText().isEmpty()) {
+
+				if (!inputEspia.getText().isEmpty()) {
 					String nombreEspia = inputEspia.getText();
 					try {
 						redEspias.agregarEspia(nombreEspia);
@@ -49,7 +48,7 @@ public class InterfazAgregarEspia {
 						lblError.setText("<html>" + eE.getMessage() + "</html>");
 						lblError.setVisible(true);
 						lblInfo.setVisible(false);
-					} 
+					}
 				} else {
 					lblError.setText("Debe completar el campo");
 					lblError.setVisible(true);
@@ -69,16 +68,14 @@ public class InterfazAgregarEspia {
 		inputEspia.setText("");
 	}
 
-	
-	public void mostrarVentana(RedEspias redEspias, InterfazMenu interfazMenu) {
-//		System.out.println("asdas");
-		this.interfazMenu = interfazMenu;
+	public void mostrarVentana(RedEspias redEspias) {
 		this.redEspias = redEspias;
 		frame.setVisible(true);
 	}
 
 	private void volverMenu() {
 		frame.setVisible(false);
+		InterfazMenu interfazMenu = new InterfazMenu();
 		interfazMenu.mostrarVentana(redEspias);
 	}
 
@@ -138,15 +135,15 @@ public class InterfazAgregarEspia {
 		btnVolverMenu.setBounds(273, 334, 115, 39);
 		frame.getContentPane().add(btnVolverMenu);
 	}
-	
-	private void inicializarMensajesInfo(){
+
+	private void inicializarMensajesInfo() {
 		lblInfo = new JLabel("Se agrego con exito");
 		lblInfo.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblInfo.setForeground(Color.GREEN);
 		lblInfo.setBounds(257, 398, 164, 23);
 		frame.getContentPane().add(lblInfo);
 		lblInfo.setVisible(false);
-		
+
 		lblError = new JLabel("fffff");
 		lblError.setForeground(Color.RED);
 		lblError.setFont(new Font("Tahoma", Font.PLAIN, 15));
