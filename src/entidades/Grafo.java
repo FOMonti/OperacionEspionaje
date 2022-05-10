@@ -48,6 +48,20 @@ public class Grafo<X, Y> {
 			throw new IllegalArgumentException("No existe el vertice: " + vertice);
 		return vertices.get(vertice).keySet();
 	}
+	
+	public int maxVecinos() {
+		int max = 0;
+		for(X vertice: vertices()) {
+			int cont = 0;
+			for(X vecino: vecinos(vertice)) {
+				cont++;
+			}
+			if(cont > max) {
+				max = cont;
+			}
+		}
+		return max;
+	}
 
 	public int tamanio() {
 		return vertices().size();
@@ -59,4 +73,33 @@ public class Grafo<X, Y> {
 		if (vertice1.equals(vertice2)) throw new IllegalArgumentException("No se permiten loops");
 		
 	}
+	
+	/* VERTICE: {VECINOS}
+	 * A: {B,C,D}
+	 * B: {A,C}
+	 * C: {A,B}
+	 * D: {A}
+	 */
+	
+	@Override
+	public String toString() {
+		String ret = "";
+		for(X vertice: vertices.keySet()) {
+			String vecinos = "{";
+			ret = ret + vertice + ": ";
+			for(X vecino: vecinos(vertice)) {
+				vecinos = vecinos + vecino + ",";
+			}
+			ret = ret + vecinos + "} // \n";
+		}
+		return ret;
+	}
 }
+
+
+
+
+
+
+
+

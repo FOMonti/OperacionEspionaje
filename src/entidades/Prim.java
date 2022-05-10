@@ -17,6 +17,7 @@ public class Prim<X> {
 	public Grafo<X, Double> arbolGeneradorMinimo(Grafo<X, Double> grafo) {
 		long inicio = System.nanoTime();
 		if(grafo.vertices().size() == 1) return grafo;
+		if(grafo.vertices().size() == 0) return grafo;
 		excepcionNoEsConexo(grafo);
 		X vertice = grafo.vertices().iterator().next();
 		arbolGeneradorMinimo = new Grafo<X, Double>();

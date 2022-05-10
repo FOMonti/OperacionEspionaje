@@ -28,17 +28,17 @@ public class Kruskal2<X> {
 	}
 
 	public Grafo<X, Double> arbolGeneradorMinimo(Grafo<X, Double> grafo) {
-		inicializarAristas(grafo);
 		long inicio = System.nanoTime();
-		if (grafo.vertices().size() == 1)
-			return grafo;
+		if (grafo.vertices().size() == 0) return grafo;
+		if (grafo.vertices().size() == 1) return grafo;
+		inicializarAristas(grafo);
 		excepcionNoEsConexo(grafo);
 		arbolGeneradorMinimo = new Grafo<X, Double>();
 		inicializarComponentesConexas(grafo.vertices());
 		armarArbol(grafo);
 		long fin = System.nanoTime();
 		tiempo = fin - inicio;
-		System.out.println(aristas.size());
+		//System.out.println(aristas.size());
 //		for (X vertice : arbolGeneradorMinimo.vertices()) {
 //			for (X vecinoX : arbolGeneradorMinimo.vecinos(vertice)) {
 //				System.out.println(vertice + "|" + vecinoX);

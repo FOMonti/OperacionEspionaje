@@ -4,8 +4,15 @@ import java.util.Set;
 
 import excepciones.ComunicacionExcepcion;
 import excepciones.EspiaExcepcion;
+import entidades.Prim;
+import entidades.Kruskal;
 
 public class RedEspias extends Grafo<String, Double> {
+	
+	Prim<String> prim;
+	Kruskal<String> kruskal;
+	Kruskal2<String> kruskal2;
+	Grafo<String, Double> arbol;
 
 	public RedEspias() {
 		super();
@@ -21,25 +28,13 @@ public class RedEspias extends Grafo<String, Double> {
 
 	public void agregarComunicacion(String espiaEmisor, String espiaReceptor, Double riesgo)
 		throws ComunicacionExcepcion {
-		
-		/* Esto rompe las excepciones por algun motivo: ComunicacionExcepcion pasa a ser IllegalArgumentExcepcion
-			if(espiaEmisor == "Seleccione un espia"|| espiaReceptor == "Seleccione un espia") {
-				throw new ComunicacionExcepcion("Uno o ambos espias no son v�lidos.");
-			}
-			
-			Este if no es necesario ya que la logica es que se sobreescribe, aun asi rompe las excepciones
-			if(existeArista(espiaEmisor, espiaReceptor)) {
-				throw new ComunicacionExcepcion("Ya existe la comunicacion : (" + espiaEmisor + ";" + espiaReceptor + ")");
-			}
-			*/
-		
+
 			try {
 				agregarArista(espiaEmisor.toUpperCase(), espiaReceptor.toUpperCase(), riesgo);
 			} catch (IllegalArgumentException e) {
 				throw new ComunicacionExcepcion("Estas comunicando un espia consigo mismo");
 			}
 		
-				
 		}
 
 	public boolean existeComunicacion(String espiaEmisor, String espiaReceptor) throws ComunicacionExcepcion {
@@ -66,6 +61,36 @@ public class RedEspias extends Grafo<String, Double> {
 		}
 		return ret;
 	}
+	
+	public Grafo<String, Double> prim() throws ComunicacionExcepcion {
+		prim = new Prim<String>();
+		arbol = new Grafo<String, Double>();
+		try {
+			arbol = prim.arbolGeneradorMinimo(this);
+			return arbol;
+		} catch (IllegalArgumentException e) {
+			throw new ComunicacionExcepcion("No existe camino posible para el mensaje");
+		}
+	}
+	
+	public Grafo<String, Double> kruskal() throws ComunicacionExcepcion {
+		kruskal2 = new Kruskal2<String>();
+		arbol = new Grafo<String, Double>();
+		try {
+			arbol = kruskal2.arbolGeneradorMinimo(this);
+			return arbol;
+		} catch (IllegalArgumentException e) {
+			throw new ComunicacionExcepcion("No existe camino posible para el mensaje");
+		}
+	}
+	
+	public long getTiempoPrim() {
+		return prim.getTiempo();
+	}
+	
+	public long getTiempoKruskal() {
+		return kruskal2.getTiempo();
+	}
 
 	public Set<String> espias() {
 		return vertices();
@@ -81,6 +106,8 @@ public class RedEspias extends Grafo<String, Double> {
 		return contactos;
 	
 	}
+	
+	
 	
 	// Function to convert Set<String> to String[]
     public String[] arrEspias()
