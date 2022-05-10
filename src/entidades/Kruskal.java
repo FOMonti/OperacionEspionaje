@@ -72,6 +72,7 @@ public class Kruskal<X> {
 				this.indice = i;
 				return;
 			}
+			aristasMarcadas.add(a);
 			i++;
 		}
 	}
