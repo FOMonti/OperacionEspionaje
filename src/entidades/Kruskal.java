@@ -39,7 +39,7 @@ public class Kruskal<X> {
 	}
 
 	private void armarArbol(Grafo<X, Double> grafo) {
-		for (int i = 0; i < grafo.tamanio(); i++) {
+		for (int i = 0; i < grafo.tamanio() - 1; i++) {
 			aristaDeMenorPeso(grafo);
 			if (!arbolGeneradorMinimo.existeVertice(verticeReferencia))
 				arbolGeneradorMinimo.agregarVertice(verticeReferencia);

@@ -2,6 +2,7 @@ package entidades;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -37,11 +38,17 @@ public class Kruskal2<X> {
 		armarArbol(grafo);
 		long fin = System.nanoTime();
 		tiempo = fin - inicio;
+		System.out.println(aristas.size());
+//		for (X vertice : arbolGeneradorMinimo.vertices()) {
+//			for (X vecinoX : arbolGeneradorMinimo.vecinos(vertice)) {
+//				System.out.println(vertice + "|" + vecinoX);
+//			}
+//		}
 		return arbolGeneradorMinimo;
 	}
 
 	private void armarArbol(Grafo<X, Double> grafo) {
-		for (int i = 0; i < grafo.tamanio(); i++) {
+		for (int i = 0; i < grafo.tamanio() - 1; i++) {
 			aristaDeMenorPeso(grafo);
 			asignarVertices();
 			if (!arbolGeneradorMinimo.existeVertice(verticeReferencia))
@@ -50,6 +57,13 @@ public class Kruskal2<X> {
 				arbolGeneradorMinimo.agregarVertice(verticeAgregar);
 			arbolGeneradorMinimo.agregarArista(verticeReferencia, verticeAgregar, pesoDeAristaAgregar);
 			intercambiarComponentesConexas(grafo.vertices(), verticeReferencia, verticeAgregar);
+			eliminarAristas();
+		}
+	}
+
+	private void eliminarAristas() {
+		for (int j = 0; j < indice; j++) {
+			aristas.remove(j);
 		}
 	}
 
@@ -57,16 +71,15 @@ public class Kruskal2<X> {
 		Arista<X> a = aristas.get(indice);
 		verticeReferencia = a.getVertice1();
 		verticeAgregar = a.getVertice2();
-		aristas.remove(indice);
+		pesoDeAristaAgregar = a.getPeso();
 	}
 
 	private void aristaDeMenorPeso(Grafo<X, Double> grafo) {
-		pesoDeAristaAgregar = Double.MAX_VALUE;
 		int i = 0;
 		for (Arista<X> a : aristas) {
-			if (pesoDeAristaAgregar > a.getPeso() && (!mismaComponenteConexa(a.getVertice1(), a.getVertice2()))) {
-				pesoDeAristaAgregar = a.getPeso();
+			if (!mismaComponenteConexa(a.getVertice1(), a.getVertice2())) {
 				this.indice = i;
+				break;
 			}
 			i++;
 		}
@@ -126,6 +139,9 @@ public class Kruskal2<X> {
 			}
 		}
 		aristas.sort(Comparadores.ordenarPorPeso);
+//		for (Arista<X> a : aristas) {
+//			System.out.println(a.getVertice1() + "|" + a.getVertice2());
+//		}
 	}
 
 	public long getTiempo() {

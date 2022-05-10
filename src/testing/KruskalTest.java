@@ -77,7 +77,7 @@ public class KruskalTest {
 		assertFalse(arbol.existeArista("I", "G"));
 		assertFalse(arbol.existeArista("I", "H"));
 		assertFalse(arbol.existeArista("B", "H"));
-		assertFalse(arbol.existeArista("E", "F"));
+
 	}
 
 	@Test

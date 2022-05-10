@@ -27,12 +27,13 @@ public class Main {
 		grafo1.agregarArista("G", "H", 1d);
 		grafo1.agregarArista("G", "F", 3d);
 		grafo1.agregarArista("F", "E", 10d);
-		Kruskal<String> kruskal = new Kruskal<String>();
-		Grafo<String, Double> arbol1 = kruskal.arbolGeneradorMinimo(grafo1);
-		System.out.println(kruskal.getTiempo());
+//		Kruskal<String> kruskal = new Kruskal<String>();
+//		Grafo<String, Double> arbol1 = kruskal.arbolGeneradorMinimo(grafo1);
+//		System.out.println(kruskal.getTiempo());
 		Kruskal2<String> kruskal2 = new Kruskal2<String>();
 		Grafo<String, Double> arbol2 = kruskal2.arbolGeneradorMinimo(grafo1);
-		System.out.println(kruskal2.getTiempo() + "|" + arbol2.tamanio());
+		System.out.println(kruskal2.getTiempo() + "   |" + arbol2.tamanio());
+
 	}
 
 }
